@@ -9,16 +9,20 @@ module Facebook
           @referral = referral
         end
 
+        def sender
+          @referral['sender']
+        end
+
         def ref
-          @referral['ref']
+          @referral['referral']['ref']
         end
 
         def source
-          @referral['source']
+          @referral['referral']['source']
         end
 
         def type
-          @referral['type']
+          @referral['referral']['type']
         end
       end
     end
