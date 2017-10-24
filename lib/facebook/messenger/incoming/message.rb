@@ -40,6 +40,10 @@ module Facebook
         def quick_replies
           @messaging['message']['quick_reply']
         end
+
+        def nlp
+          @messaging['message']['nlp']
+        end
       end
     end
   end
