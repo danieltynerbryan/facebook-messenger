@@ -36,8 +36,8 @@ module Facebook
         end
 
         def add_user_to_label(label_id:, user_id:)
-          self.base_uri 'https://graph.facebook.com/v2.6'
-          
+          base_uri 'https://graph.facebook.com/v2.6'
+
           response = post "/#{label_id}/label", body: JSON.dump({"user" => user_id}), format: :json
 
           raise_errors_from(response)
