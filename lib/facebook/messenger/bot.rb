@@ -29,6 +29,8 @@ module Facebook
         def message_creatives(message_object)
           response = post '/message_creatives', body: JSON.dump(message_object), format: :json
 
+          puts response
+
           raise_errors_from(response)
 
           response['message_creative_id']
