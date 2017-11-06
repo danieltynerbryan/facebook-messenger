@@ -3,6 +3,7 @@ module Facebook
     # The Bot module sends and receives messages.
     module Bot
       include HTTParty
+      debug_output $stdout
 
       base_uri 'https://graph.facebook.com/v2.11/me'
 
