@@ -19,6 +19,13 @@ module Facebook
         #
         # Returns a String describing the message ID if the message was sent,
         # or raises an exception if it was not.
+        def self.for_uri(uri)
+          current_uri = self.base_uri
+          self.base_uri uri
+          yield
+          self.base_uri current_uri
+        end
+
         def deliver(message)
           response = post '/messages', body: JSON.dump(message), format: :json
 
@@ -36,13 +43,16 @@ module Facebook
         end
 
         def add_user_to_label(label_id:, user_id:)
-          base_uri 'https://graph.facebook.com/v2.6'
+          success = false
+          for_uri('https://graph.facebook.com/v2.6') do
+            response = post "/#{label_id}/label", body: JSON.dump({"user" => user_id}), format: :json
 
-          response = post "/#{label_id}/label", body: JSON.dump({"user" => user_id}), format: :json
+            raise_errors_from(response)
 
-          raise_errors_from(response)
+            success = response['success']
+          end
 
-          response['success']
+          success
         end
 
         def message_creatives(message_object:)
