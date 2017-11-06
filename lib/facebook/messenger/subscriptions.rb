@@ -6,7 +6,7 @@ module Facebook
     module Subscriptions
       include HTTParty
 
-      base_uri 'https://graph.facebook.com/v2.11/me'
+      base_uri 'https://graph.facebook.com/v2.6/me'
 
       format :json
 
