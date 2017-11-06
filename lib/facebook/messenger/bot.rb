@@ -19,7 +19,7 @@ module Facebook
         #
         # Returns a String describing the message ID if the message was sent,
         # or raises an exception if it was not.
-        def self.for_uri(uri)
+        def for_uri(uri)
           current_uri = self.base_uri
           self.base_uri uri
           yield
