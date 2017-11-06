@@ -4,7 +4,7 @@ module Facebook
     module Bot
       include HTTParty
 
-      base_uri 'https://graph.facebook.com/v2.6/me'
+      base_uri 'https://graph.facebook.com/v2.11/me'
 
       EVENTS = [:message, :delivery, :postback, :optin,
                 :read, :account_linking, :referral].freeze
@@ -24,6 +24,14 @@ module Facebook
           raise_errors_from(response)
 
           response['message_id']
+        end
+
+        def message_creatives(message_object)
+          response = post '/message_creatives', body: JSON.dump(message_object), format: :json
+
+          raise_errors_from(response)
+
+          response['message_creative_id']
         end
 
         # Register a hook for the given event.
