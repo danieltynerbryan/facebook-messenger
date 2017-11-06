@@ -5,7 +5,7 @@ module Facebook
       include HTTParty
       debug_output $stdout
 
-      base_uri 'https://graph.facebook.com/v2.11/me'
+      base_uri 'https://graph.facebook.com/v2.6/me'
 
       EVENTS = [:message, :delivery, :postback, :optin,
                 :read, :account_linking, :referral].freeze
