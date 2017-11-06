@@ -27,14 +27,36 @@ module Facebook
           response['message_id']
         end
 
-        def message_creatives(message_object:)
-          response = post '/message_creatives', body: JSON.dump(message_object), format: :json
+        def custom_label(name:)
+          response = post '/custom_labels', body: JSON.dump({"name" => name}), format: :json
 
-          puts response
+          raise_errors_from(response)
+
+          response['id']
+        end
+
+        def add_user_to_label(label_id:, user_id:)
+          response = post "#{label_id}/label", body: JSON.dump({"user" => user_id}), format: :json
+
+          raise_errors_from(response)
+
+          response['success']
+        end
+
+        def message_creatives(message_object:)
+          response = post '/message_creatives', body: JSON.dump({"messages" => [message_object]}), format: :json
 
           raise_errors_from(response)
 
           response['message_creative_id']
+        end
+
+        def broadcast(message_id:, label_id:)
+          response = post '/broadcast_messages', body: JSON.dump({"message_creative_id" => message_id, "custom_label_id" => label_id}), format: :json
+
+          raise_errors_from(response)
+
+          response['broadcast_id']
         end
 
         # Register a hook for the given event.
