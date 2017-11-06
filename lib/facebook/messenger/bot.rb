@@ -5,7 +5,7 @@ module Facebook
       include HTTParty
       debug_output $stdout
 
-      base_uri 'https://graph.facebook.com/v2.6/me'
+      base_uri 'https://graph.facebook.com/v2.11/me'
 
       EVENTS = [:message, :delivery, :postback, :optin,
                 :read, :account_linking, :referral].freeze
@@ -34,21 +34,6 @@ module Facebook
           raise_errors_from(response)
 
           response['id']
-        end
-
-        def add_user_to_label(label_id:, user_id:)
-          base_uri 'https://graph.facebook.com/v2.6'
-          success = false
-
-          response = post "/#{label_id}/label", body: JSON.dump({"user" => user_id}), format: :json
-
-          raise_errors_from(response)
-
-          success = response['success']
-
-          base_uri 'https://graph.facebook.com/v2.6/me'
-
-          success
         end
 
         def message_creatives(message_object:)
