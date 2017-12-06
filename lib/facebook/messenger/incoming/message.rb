@@ -41,6 +41,10 @@ module Facebook
           @messaging['message']['quick_reply']
         end
 
+        def quick_reply_payload
+          @messaging['message'].key?('quick_reply') ? @messaging['message']['quick_reply']['payload'] : nil
+        end
+
         def nlp
           @messaging['message']['nlp']
         end
