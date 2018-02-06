@@ -8,6 +8,11 @@ module Facebook
         def payload
           @messaging['postback']['payload']
         end
+
+        def referral
+          @messaging['postback']['referral']
+        end
+
       end
     end
   end
