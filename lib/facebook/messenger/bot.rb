@@ -44,11 +44,11 @@ module Facebook
           response['message_creative_id']
         end
 
-        def broadcast(message_id:, label_id:)
-          response = post '/broadcast_messages', body: JSON.dump({"message_creative_id" => message_id, "custom_label_id" => label_id}), format: :json
-
+        def broadcast(message_id:, label_id: nil, targeting_labels: nil)
+          raise 'requires label(s)' unless label_id || targeting_labels
+          label_data = targeting_labels ? { targeting: { labels: targeting_labels } } : { custom_label_id: label_id }
+          response = post '/broadcast_messages', body: JSON.dump(message_creative: message_id, **label_data), format: :json
           raise_errors_from(response)
-
           response['broadcast_id']
         end
 
